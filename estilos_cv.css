@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Inter:wght@300;400;700&display=swap');
+
+:root {
+    --bg-main: #0a192f;        /* Azul oscuro tipo terminal */
+    --bg-card: #112240;        /* Azul levemente más claro para cajas */
+    --text-main: #ccd6f6;      /* Gris claro para texto principal */
+    --text-sec: #8892b0;       /* Gris apagado para descripciones */
+    --neon-cyan: #64ffda;      /* Color de acento estilo "hacker/tech" */
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 3em;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    border-left: 5px solid var(--neon-cyan);
+    padding-left: 15px;
+}
+
+h2 {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.5em;
+    color: var(--neon-cyan);
+    margin-top: 40px;
+    border-bottom: 1px solid #233554;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: var(--text-main);
+    margin-bottom: 5px;
+}
+
+p {
+    color: var(--text-sec);
+}
+
+a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+    font-family: 'Fira Code', monospace;
+}
+
+a:hover {
+    text-shadow: 0 0 8px rgba(100, 255, 218, 0.5);
+    background-color: rgba(100, 255, 218, 0.1);
+    border-radius: 4px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: var(--bg-card);
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+    border-left: 2px solid transparent;
+}
+
+li:hover {
+    transform: translateY(-5px);
+    border-left: 2px solid var(--neon-cyan);
+}
+
+strong {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #233554;
+    margin: 40px 0;
+}
