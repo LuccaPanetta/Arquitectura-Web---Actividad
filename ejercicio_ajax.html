@@ -1,77 +1,86 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="stylesheet" type="text/css" href="ajax.css">
-
-
-<title>Ejercicio de AJAX</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Ejercicio de AJAX</title>
+    <link rel="stylesheet" type="text/css" href="ajax.css" />
 </head>
 
 <body>
 
-	<h1>Ejercicio de AJAX</h1>
+    <h1>Ejercicio de AJAX</h1>
+    
+    <noscript>
+        <p><strong>Aviso de accesibilidad:</strong> Su navegador no soporta JavaScript o está deshabilitado. Esta aplicación AJAX requiere JavaScript para funcionar correctamente.</p>
+    </noscript>
 
-<form action="#">
-    <label>URL:</label>
-    <input type="text" id="recurso" size="70" />
-    <input type="button" id="enviar" value="Mostrar contenidos" />
-  </form>
+    <form action="#" method="get">
+        <fieldset style="border: none; padding: 0; margin: 0;">
+            <label for="recurso">URL:</label>
+            <input type="text" id="recurso" name="recurso" size="70" title="Ingrese la URL del recurso a consultar" />
+            <input type="button" id="enviar" value="Mostrar contenidos" title="Botón para enviar la solicitud AJAX" />
+        </fieldset>
+    </form>
 
-  <div id="principal">
-    <h2>Contenidos del archivo:</h2>
-    <div id="contenidos"></div>
+    <div id="principal">
+        <h2>Contenidos del archivo:</h2>
+        <div id="contenidos"></div>
 
-    <h2>Cabeceras HTTP de la respuesta del servidor:</h2>
-    <div id="cabeceras"></div>
-  </div>
+        <h2>Cabeceras HTTP de la respuesta del servidor:</h2>
+        <div id="cabeceras"></div>
+    </div>
 
-  <div id="secundario">
-    <h2>Estados de la petición:</h2>
-    <div id="estados"></div>
+    <div id="secundario">
+        <h2>Estados de la petición:</h2>
+        <div id="estados"></div>
 
-    <h2>Código de estado:</h2>
-    <div id="codigo"></div>
-  </div>
+        <h2>Código de estado:</h2>
+        <div id="codigo"></div>
+    </div>
 
-<script type="text/javascript">
-    window.onload = function() {
-        document.getElementById('recurso').value = window.location.href;
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('recurso').value = window.location.href;
 
-        document.getElementById('enviar').onclick = function() {
-            var url = document.getElementById('recurso').value;
-            var xhr = new XMLHttpRequest();
-            var estadosDiv = document.getElementById('estados');
-            
-            estadosDiv.innerHTML = ''; 
-            document.getElementById('contenidos').innerText = '';
-            document.getElementById('cabeceras').innerHTML = '';
-            document.getElementById('codigo').innerHTML = '';
+            document.getElementById('enviar').onclick = function() {
+                var url = document.getElementById('recurso').value;
+                var xhr = new XMLHttpRequest();
+                var estadosDiv = document.getElementById('estados');
+                
+                estadosDiv.innerHTML = ''; 
+                document.getElementById('contenidos').innerHTML = '';
+                document.getElementById('cabeceras').innerHTML = '';
+                document.getElementById('codigo').innerHTML = '';
 
-            var estadosEtiquetas = [
-                '[0] No inicializado (UNSENT)',
-                '[1] Conexión establecida (OPENED)',
-                '[2] Petición recibida (HEADERS_RECEIVED)',
-                '[3] Procesando (LOADING)',
-                '[4] Completado (DONE)'
-            ];
+                var estadosEtiquetas = [
+                    '[0] No inicializado (UNSENT)',
+                    '[1] Conexión establecida (OPENED)',
+                    '[2] Petición recibida (HEADERS_RECEIVED)',
+                    '[3] Procesando (LOADING)',
+                    '[4] Completado (DONE)'
+                ];
 
-            xhr.onreadystatechange = function() {
-                estadosDiv.innerHTML += estadosEtiquetas[xhr.readyState] + '\n';
+                xhr.onreadystatechange = function() {
+                    estadosDiv.innerHTML += estadosEtiquetas[xhr.readyState] + '\n';
 
-                if (xhr.readyState === 4) {
-                    document.getElementById('codigo').innerHTML = xhr.status + ' ' + xhr.statusText;
-                    
-                    document.getElementById('cabeceras').innerHTML = xhr.getAllResponseHeaders();
-                    
-                    document.getElementById('contenidos').innerText = xhr.responseText;
-                }
+                    if (xhr.readyState === 4) {
+                        document.getElementById('codigo').innerHTML = xhr.status + ' ' + xhr.statusText;
+                        
+                        document.getElementById('cabeceras').innerHTML = xhr.getAllResponseHeaders();
+                        
+                        // Uso de textContent que es más seguro y estándar que innerText
+                        if(typeof document.getElementById('contenidos').textContent !== 'undefined'){
+                             document.getElementById('contenidos').textContent = xhr.responseText;
+                        } else {
+                             document.getElementById('contenidos').innerText = xhr.responseText;
+                        }
+                    }
+                };
+
+                xhr.open('GET', url, true);
+                xhr.send();
             };
-
-            xhr.open('GET', url, true);
-            xhr.send();
         };
-    };
-  </script>
+    </script>
 </body>
 </html>
